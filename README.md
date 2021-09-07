@@ -1,0 +1,1 @@
+# Schlumpfcraft.de-Bot-Updates
