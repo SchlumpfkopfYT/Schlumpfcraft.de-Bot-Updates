@@ -1191,8 +1191,8 @@ if (command == prefix + 'closek') {
   if(!bUser) return
   message.guild.members.unban(bUser.user)
   let channel = message.mentions.channels.first() || message.channel;
-  if (await ticketschannelsdb.has(`ticket_${channel.id}`) == true) {
-    let msg = await message.lineReply({ embed: { description: `Das Ticket wird nach 5 Sekunden geschlossen!`, color: 0x5865F2 } })
+  if (ticketschannelsdb.has(`ticket_${channel.id}`) == true) {
+    let msg = message.lineReply({ embed: { description: `Das Ticket wird nach 5 Sekunden geschlossen!`, color: 0x5865F2 } })
     setTimeout(async () => {
       try {
         msg.delete()
@@ -1200,7 +1200,7 @@ if (command == prefix + 'closek') {
         ticketab.remove(`${bUser}`)
         let type = 'member'
         await Promise.all(channel.permissionOverwrites.filter(o => o.type === type).map(o => o.delete()));
-        channel.setName(`closed-${await ticketschannelsdb.get(`ticket_${channel.id}`).count}`)
+        channel.setName(`closed-${ticketschannelsdb.get(`ticket_${channel.id}`).count}`)
         let log_embed = new Discord.MessageEmbed()
           .setTitle(`Ticket geschlossen`)
           .addField(`Ticket`, `<#${channel.id}>`)
