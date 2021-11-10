@@ -1,10 +1,18 @@
 {
-    "tickets_y0hRf5QNDzN57t5VqjqG": {
+    "tickets_DTJlSFflRHx91TUIs5z6": {
         "reason": "Support Ticket",
-        "msgID": "897609539141107732",
-        "id": "y0hRf5QNDzN57t5VqjqG",
-        "guildName": "Schlumpfcraft.de",
-        "guildAvatar": "https://cdn.discordapp.com/icons/813176689097703475/1ae2ae1dbd8fa33a275c79a57c14abba.webp",
-        "channelID": "855033319321763840"
+        "msgID": "906653524606193684",
+        "id": "DTJlSFflRHx91TUIs5z6",
+        "guildName": "Server von SchlumpfkopfYT",
+        "guildAvatar": null,
+        "channelID": "884469796740169842"
+    },
+    "tickets_kiRdrguHsgKtCNYXsBlu": {
+        "reason": "Support Ticket",
+        "msgID": "906658740302929930",
+        "id": "kiRdrguHsgKtCNYXsBlu",
+        "guildName": "Server von SchlumpfkopfYT",
+        "guildAvatar": null,
+        "channelID": "884469796740169842"
     }
 }

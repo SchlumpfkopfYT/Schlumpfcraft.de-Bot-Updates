@@ -8,6 +8,7 @@ const ticketab = new Dataa(`/Datas/ifticketsa.json`);
 const warnplayer = new Dataa(`/Datas/warn.json`);
 const Geld = new Dataa(`/Datas/Geld.json`);
 const ifGeld = new Dataa(`/Datas/ifGeld.json`);
+const Warnt = new Dataa(`/Datas/WarnT.json`);
 const dailyaaa = new Dataa(`/Datas/daily.json`);
 const countsdb = new Dataa(`/Datas/tickets-counts.json`);
 const ifban = new Dataa(`/Datas/ban.json`);
@@ -1152,7 +1153,12 @@ if (command == prefix + 'schlumpf') {
   if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert***!start***")
   Geld.math(`${message.author.id}`,`+`, 1);
   message.channel.send("Du Hast 1 Euro Gekommen !")
-
+  let log_warn = new Discord.MessageEmbed()
+  .setTitle(`Befehlen Check`)
+  .addField(`${message.author.tag}`, `Hat /schlumpf Gemacht!`) 
+  .setTimestamp()
+  .setColor(`GREEN`)
+ channelLog(log_warn)
 }
 });
 client.on('message', message => {
@@ -1175,46 +1181,87 @@ function iantervalFunc() {
   if (!ch) return console.log(`FEHLER!`)
   ch.send("Daily geht wieder für alle")
 }
-setInterval(iantervalFunc,1000 * 60 * 60 * 1);
+setInterval(iantervalFunc,1000 * 60 * 60 * 24);
+function intervalFunc() {
+  if (!config.log_channel_id) return;
+  partherer(`Heyy du! Ja genau du, genau dich meine ich!
+Du hast Lust auf einen guten Minecraft- oder Discordserver, dann bist bei uns genau richtig.
+Wir bieten dir:
+-	eine lustige Community auf unserem Discord
+-	einen Minecraftserver, aber was für Spielmodis wir haben muss du wohl selbst herausfinden
+-	einen sehr netten Support und nette Teamitglieder
+-	eine Website zum Bewerben und anderen features
+-	wir unterstützen auch die Minecraft Bedrock Version
+Wir freuen uns auf dich, aber wir können dir noch nicht versichern, ob der Minecraftserver schon bald öffentlich gehen kann, denn es gibt Momentan Probleme, aber diese sind sicher bald behoben. 
+Also wie wäre es? Schaust du mal bei uns vorbei?
+Fallst du dich noch fragst wie die Server IP lautet...
+Sie lautet: Schlumpfcraft.de!
+Wir würden uns freuen 
+Dein Schlumpfcraft.de Team
+  https://discord.gg/rHeBKMRd63`)
+}
+setInterval(intervalFunc,1000 * 60 * 60 * 6);
 client.on('message', message => {
   let command = message.content.toLowerCase().split(" ")[0];
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
-  let Money = Geld.get(`${message.author.id}`)
-if (command == prefix + 'closek') {
-
-  if(!message.member.hasPermission("BAN_MEMBERS")) {
-    return message.channel.send(`**${message.author.username}**, You do not have perms to unban someone`)
-  }
-  if(bans.size == 0) return 
-  let bUser = bans.find(b => b.user.id == userID)
-  if(!bUser) return
-  message.guild.members.unban(bUser.user)
+if (command == prefix + 'closeadmin') {
+  if (message.channel.id == "881581314816479232") return ;
   let channel = message.mentions.channels.first() || message.channel;
-  if (ticketschannelsdb.has(`ticket_${channel.id}`) == true) {
-    let msg = message.lineReply({ embed: { description: `Das Ticket wird nach 5 Sekunden geschlossen!`, color: 0x5865F2 } })
-    setTimeout(async () => {
-      try {
-        msg.delete()
-        channel.send({ embed: { description: `Ticket wurde geschlossen von <@!${message.author.id}>`, color: `YELLOW` } })
-        ticketab.remove(`${bUser}`)
-        let type = 'member'
-        await Promise.all(channel.permissionOverwrites.filter(o => o.type === type).map(o => o.delete()));
-        channel.setName(`closed-${ticketschannelsdb.get(`ticket_${channel.id}`).count}`)
-        let log_embed = new Discord.MessageEmbed()
-          .setTitle(`Ticket geschlossen`)
-          .addField(`Ticket`, `<#${channel.id}>`)
-          .addField(`Aktion von`, `<@!${message.author.id}>`)
-          .setTimestamp()
-          .setColor(`YELLOW`)
-          .setFooter(message.guild.name, message.guild.iconURL())
-        channelLog(log_embed)
-      } catch {
+  let bans = message.guild.fetch().then();
+  let User = message.guild.member(message.mentions.users.first()) ||message.guild.members.cache.get(args[0])
+  if(!User) return message.channel.send("Bitte Geb ein Spieler Ein!");
+  if(!ticketschannelsdb.has(`ticket_${channel.id}`) == true) return message.channel.send("hi JAJAJA");
+  ticketab.remove(`${User.id}`)
+  let type = 'member'
+  Promise.all(channel.permissionOverwrites.filter(o => o.type === type).map(o => o.delete()));
+  let log_embed = new Discord.MessageEmbed()
+  .setTitle(`Ticket geschlossen`)
+  .addField(`Ticket`, `<#${channel.id}>`)
+  .addField(`Aktion von`, `<@!${message.author.id}>`)
+  .setTimestamp()
+  .setColor(`YELLOW`)
+  .setFooter(message.guild.name, message.guild.iconURL())
+channelLog(log_embed)
+channel.setName(`${User.displayName}-Ticket`)
+channel.send(`Ticket wurde geschlossen von <@!${message.author.id}>`)
 
-      }
-    }, 1000)
-  }
+}
+});
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+if (command == prefix + 'warnteam') {
+  if (message.channel.id == "881581314816479232")return;
+  const user = message.guild.member(message.mentions.users.first()) ||message.guild.members.cache.get(args[0])
+  if (!message.member.hasPermission('KICK_MEMBERS'))return message.channel.send("Sie können diesen Befehl nicht verwenden, da Ihnen die Permission von `*Team Rolle*` fehlt");    
+  if (!user) return message.reply("Gib einen User an.")  | message.delete();;
+  if (message.channel.id == "881581314816479232")return;
+  if (!message.member.hasPermission('KICK_MEMBERS'))return message.channel.send("Sie können diesen Befehl nicht verwenden, da Ihnen die Permission von `*Team Rolle*` fehlt"); 
+  if(Warnt.get(`${user.id}`) == 3 )return user.roles.remove(`854778181847482408`)|| user.roles.remove(`854778165292564560`)|| user.roles.remove(`854778171647459389`)|| user.roles.remove(`854778170619985971`) || user.roles.remove(`854778171325284382`)|| user.roles.remove(`854778165292564560`)|| user.roles.remove(`854778164567867442`)|| user.roles.remove(`854778163762561064`)|| user.roles.remove(`854778172872065044`)|| user.roles.remove(`854778173564649502`)|| user.roles.remove(`854778174612570212`)|| user.roles.remove(`854778175661932634`);
+  Warnt.math(`${user.id}`, `+`, 1)
+  let WarnPlayer = new Discord.MessageEmbed()
+  .setTitle(`Syetem`)
+  .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
+  .setThumbnail(`https://schlumpfcraft.de/img/logo.jpg`)
+  .addField(`${user}`, `Du hast gegen unsere Teamreglen verstoßen`)
+  .addField('Verwarung', 'Bie fragen Gerne zu [Sc] SchlumpfkopfYT#2005 Melden Danke')
+  .setTimestamp()
+  .setImage('https://schlumpfcraft.de/img/logo.jpg')
+  .setColor(`RED`)
+  .setFooter('Schlumpfcraft.de Bot');
+  message.channel.send(WarnPlayer)
+ message.delete();
+ let log_warn = new Discord.MessageEmbed()
+ .setTitle(`System
+Erfolgreich Ausgeführt`)
+ .addField(`${user.tag}`, `Hat ein Team Verwarnungen gekommen`) 
+ .addField(`Aktion von `, `${message.member.user.tag}`) 
+ .setTimestamp()
+ .setColor(`GREEN`)
+channelLog(log_warn)
 }
 });
 
-client.login("ODk3NjA3ODQwMjQ2NjY1MjQ3.YWYIcQ.bdyRzDD3k9L7QTNTu-ir-HwL-Jk") 
+client.login("ODczNTk5NzI3NDc0NzI5MDcw.YQ6xJQ.9nnBEKbVmGsGnrs9L_veXsvMI-s") 

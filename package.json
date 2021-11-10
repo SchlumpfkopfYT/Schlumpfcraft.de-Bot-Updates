@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/opus": "0.5.3",
     "ascii-table": "0.0.9",
     "discord-buttons": "3.2.1",
     "discord-player": "5.0.2",
