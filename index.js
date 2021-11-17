@@ -47,12 +47,12 @@ heute = date.toLocaleString('de-DE');
       let str = `Welcome to ${member.guild.name}! **${member.user.username}**! \nYou are the **${member.guild.memberCount}** member!`
       const embedaa = new Discord.MessageEmbed()
       .setTitle(`Wilkommen ${member.displayName}`)
-      .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
+      .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.pn','https://discord.gg/JNadFyEznH')
       .addFields(
         { name: `Wilkommen auf ${member.guild.name}!`, value: `Du bist der ${member.guild.memberCount} user` },
         { name: `Gejoint`, value: `Du Bist am ${heute} Gejoint`},
         { name: `Reglen`, value: `Bitte lese dir die reglen duch in	<#854778212629086228> und akzeptieren die Regeln `, inline: true }, )
-        .setImage('https://schlumpfcraft.de/img/logo.jpg')
+        .setImage('https://schlumpfcraft.de/img/logo.png')
         .setColor(`GREEN`)
       channel.send(embedaa);
       let logs = client.channels.cache.get(config.log_channel_id)
@@ -71,11 +71,11 @@ client.on('guildMemberRemove', member => {
       let str = `Verlassen to ${member.guild.name}! **${member.user.username}**! \nYou are the **${member.guild.memberCount}** member!`
       const embeda = new Discord.MessageEmbed()
       .setTitle(`Verlassen ${member.user.username}`)
-      .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
+      .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
       .addFields(
         { name: `Verlassen ${member.guild.name}!`, value: `Wir sind jezte nur noch ${member.guild.memberCount} User` },
         { name: `Verlassen `, value: `Er hat uns am  ${heute} verlassen`, inline: true }, )
-        .setImage('https://schlumpfcraft.de/img/logo.jpg')
+        .setImage('https://schlumpfcraft.de/img/logo.png')
         .setColor(`RED`)
       channel.send(embeda);
       let logs = client.channels.cache.get(config.log_channel_id)
@@ -89,14 +89,14 @@ client.on('message', message => {
   if(warnplayer.get(`${message.author.id}`) == 6 )  return message.delete()| warnplayer.math(`${message.author.id}`, `+`, 1) |message.guild.members.cache.get(message.author.id).kick("Tagge Teammtglieder");
     let VErwarung = new Discord.MessageEmbed()
     .setTitle(`Verwarnung`)
-    .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
-    .setThumbnail(`https://schlumpfcraft.de/img/logo.jpg`)
+    .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+    .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
     .addFields(
       { name: 'Verwarunng', value: 'Bitte Tagge keine Teammitglieder' },
       { name: `${message.member.user.tag}`, value: `!!`, inline: true },
     )
     .setTimestamp()
-    .setImage('https://schlumpfcraft.de/img/logo.jpg')
+    .setImage('https://schlumpfcraft.de/img/logo.png')
     .setColor(`RED`)
     .setFooter('Schlumpfcraft.de Bot');
     message.delete()
@@ -115,13 +115,13 @@ client.on('message', message => {
   if (message.channel.id == "881581314816479232") return ;
     let Webseite = new Discord.MessageEmbed()
     .setTitle(`Webseite Info`)
-    .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
-    .setThumbnail(`https://schlumpfcraft.de/img/logo.jpg`)
+    .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+    .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
     .addField(`https://schlumpfcraft.de/`, "Unser Hauptwebseite" )
     .addField(`https://schlumpfcraft.de/zeit`, "Unser Minecraft Zeit" )
     .addField(`https://schlumpfcraft.de/forum`, "Unser Forum" )
     .setTimestamp()
-    .setImage('https://schlumpfcraft.de/img/logo.jpg')
+    .setImage('https://schlumpfcraft.de/img/logo.png')
     .setColor(`BLUE`)
     .setFooter('Schlumpfcraft.de Bot');
     message.channel.send(Webseite)
@@ -944,14 +944,14 @@ client.distube
 		message.channel.send('Ein Fehler ist aufgetreten: ' + e);
 	});
   client.on('message', message => {
-    if (message.content === prefix + 'help'| message.mentions.has("873599727474729070")) {
+    if (message.content === prefix + 'help') {
       if (message.channel.id == "881581314816479232")return;
       if (message.channel.id == "854778206249549854")return;
       if (message.channel.id == "854778214143361046")return;
       var Helpa = new Discord.MessageEmbed()
       .setTitle(`Help Seite`)
-      .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
-      .setThumbnail(`https://schlumpfcraft.de/img/logo.jpg`)
+      .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+      .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
       .addFields(
         { name: '!ping', value: 'Dann kommt Pong!' },
         { name: '!play', value: 'Dann kannst du Musik hören' },
@@ -961,7 +961,7 @@ client.distube
         { name: `!stop/!leave/!s/!l`, value: `Dadurch verlässt der Bot den Sprachchat!`, inline: true }
       )
       .setTimestamp()
-      .setImage('https://schlumpfcraft.de/img/logo.jpg')
+      .setImage('https://schlumpfcraft.de/img/logo.png')
       .setColor(`GREEN`)
       .setFooter('Schlumpfcraft.de Bot');
       message.channel.send(Helpa)
@@ -982,12 +982,12 @@ client.distube
       warnplayer.math(`${user.id}`, `+`, 1)
       let WarnPlayer = new Discord.MessageEmbed()
       .setTitle(`Syetem`)
-      .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
-      .setThumbnail(`https://schlumpfcraft.de/img/logo.jpg`)
+      .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+      .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
       .addField(`${user.tag}`, `Du hast gegen unsere Reglen verstoßen`)
       .addField('Verwarung', 'Bei fragen Bitte ich dich ein ticket zu erstellen')
       .setTimestamp()
-      .setImage('https://schlumpfcraft.de/img/logo.jpg')
+      .setImage('https://schlumpfcraft.de/img/logo.png')
       .setColor(`RED`)
       .setFooter('Schlumpfcraft.de Bot');
       message.channel.send(WarnPlayer)
@@ -1017,14 +1017,14 @@ Erfolgreich Ausgeführt`)
       if (!message.member.hasPermission('MANAGE_MESSAGES'))return message.channel.send("Sie können diesen Befehl nicht verwenden, da Ihnen die Permission von `*Team Rolle*` fehlt");    
       let WarnPlayer = new Discord.MessageEmbed()
       .setTitle(`Syetem`)
-      .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
-      .setThumbnail(`https://schlumpfcraft.de/img/logo.jpg`)
+      .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+      .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
       .addFields(
         { name: `${user.tag}`, value: `Dir wörde ein Verwarung entfernt`, inline: true },
         { name: 'UnVerwarung', value: 'Bei fragen Bitte ich dich ein ticket zu erstellen' },
       )
       .setTimestamp()
-      .setImage('https://schlumpfcraft.de/img/logo.jpg')
+      .setImage('https://schlumpfcraft.de/img/logo.png')
       .setColor(`GREEN`)
       .setFooter('Schlumpfcraft.de Bot');
       let log_warn = new Discord.MessageEmbed()
@@ -1082,13 +1082,13 @@ Erfolgreich Ausgeführt`)
         return message.channel.send("Sie können diesen Befehl nicht verwenden, da Ihnen die Permission von `*Team Rolle*` fehlt");
         let cticket = new Discord.MessageEmbed()
         .setTitle(`[Möchtest du das Ticket schließen?]`)
-        .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
-        .setThumbnail(`https://schlumpfcraft.de/img/logo.jpg`)
+        .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+        .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
         .addFields(
           { name: `Falls du **keine weiteren Fragen** hast, schließe das Ticket`, value: ` mit **!close** Für **weitere Fragen** stehen wir dir in **diesem Ticket** gerne zur Verfügung.`, },
         )
         .setTimestamp()
-        .setImage('https://schlumpfcraft.de/img/logo.jpg')
+        .setImage('https://schlumpfcraft.de/img/logo.png')
         .setColor(`RED`)
         .setFooter('Schlumpfcraft.de Bot');
         message.channel.send(cticket)
@@ -1243,12 +1243,12 @@ if (command == prefix + 'warnteam') {
   Warnt.math(`${user.id}`, `+`, 1)
   let WarnPlayer = new Discord.MessageEmbed()
   .setTitle(`Syetem`)
-  .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
-  .setThumbnail(`https://schlumpfcraft.de/img/logo.jpg`)
-  .addField(`${user}`, `Du hast gegen unsere Teamreglen verstoßen`)
+  .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+  .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
+  .addField(`${user.user.tag}`, `Du hast gegen unsere Teamreglen verstoßen`)
   .addField('Verwarung', 'Bie fragen Gerne zu [Sc] SchlumpfkopfYT#2005 Melden Danke')
   .setTimestamp()
-  .setImage('https://schlumpfcraft.de/img/logo.jpg')
+  .setImage('https://schlumpfcraft.de/img/logo.png')
   .setColor(`RED`)
   .setFooter('Schlumpfcraft.de Bot');
   message.channel.send(WarnPlayer)
@@ -1256,11 +1256,19 @@ if (command == prefix + 'warnteam') {
  let log_warn = new Discord.MessageEmbed()
  .setTitle(`System
 Erfolgreich Ausgeführt`)
- .addField(`${user.tag}`, `Hat ein Team Verwarnungen gekommen`) 
+ .addField(`${user.user.tag}`, `Hat ein Team Verwarnungen gekommen`) 
  .addField(`Aktion von `, `${message.member.user.tag}`) 
  .setTimestamp()
  .setColor(`GREEN`)
 channelLog(log_warn)
+}
+});
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+if (command == prefix + 'rechtlich'|| command == prefix + 'Impressum') {
+  message.channel.send("https://schlumpfcraft.de/Impressum/")
 }
 });
 
