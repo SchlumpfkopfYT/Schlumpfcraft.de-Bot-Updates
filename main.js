@@ -94,7 +94,7 @@ client.on('message', message  => {
       .setImage('https://schlumpfcraft.de/img/logo.jpg')
       .setColor(`GREEN`)
       .setFooter('Schlumpfcraft.de Bot');
-      message.channel.send(Help)
+      message.channel.send("Kommt Bald")
       message.delete()
     }
   });

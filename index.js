@@ -24,6 +24,12 @@ async function channelLog(embed) {
   if (!ch) return console.log(`FEHLER!`)
   ch.send(embed)
 }
+async function support(embed) {
+  if (!config.supportlog) return;
+  let ch = await client.channels.cache.get(config.supportlog)
+  if (!ch) return console.log(`FEHLER!`)
+  ch.send(embed)
+}
 async function partherer(embed) {
   if (!config.partherer) return;
   let ch = await client.channels.cache.get(config.partherer)
@@ -1179,7 +1185,7 @@ function iantervalFunc() {
   dailyaaa.clear()
   let ch = client.channels.cache.get("893130629942767656")
   if (!ch) return console.log(`FEHLER!`)
-  ch.send("Daily geht wieder für alle")
+  ch.send("Ihr konnt wieder !daily")
 }
 setInterval(iantervalFunc,1000 * 60 * 60 * 24);
 function intervalFunc() {
@@ -1271,5 +1277,66 @@ if (command == prefix + 'rechtlich'|| command == prefix + 'Impressum') {
   message.channel.send("https://schlumpfcraft.de/Impressum/")
 }
 });
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+  let role = message.guild.roles.cache.get("854778187317772289");
+  let VipGe = new Discord.MessageEmbed()
+.setTitle(`Vip Gekauft`)
+.setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+.setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
+.addField(`${message.author.tag}`, `Du hast dir den Vip Rang gekauft`)
+.setTimestamp()
+.setImage('https://schlumpfcraft.de/img/logo.png')
+.setColor(`GREEN`)
+.setFooter('Schlumpfcraft.de Bot');
+if (command == prefix + 'schlumpfvip') {
+if (!ifGeld.has(`${message.author.id}`))return;
+if (role)return;
+if (Geld.get(`${message.author.id}`)== 10000)return Geld.math(`${message.author.id}`, `-`, 10000) & message.member.roles.add(role) & message.channel.send(VipGe);
+if (Geld.get(`${message.author.id}`) > 10000)return Geld.math(`${message.author.id}`, `-`, 10000) & message.member.roles.add(role) & message.channel.send(VipGe) && message.delete();
+message.channel.send("Leider hast du nicht genug Geld daher guck mal im Shop ( !schlumpfshop) dann siehst du wie Teuer es ist und wie viel Geld du brauchst.")
+}
+});
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+if (command == prefix + 'schlumpfshop') {
+  var Shop = new Discord.MessageEmbed()
+  .setTitle(`Shop`)
+  .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+  .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
+  .addFields(
+    { name: '10.000 Schlumpfcoins = VIP ', value: 'Du kaufst dir damit den Vip Rang' },
+    { name: `100.000 Schlumpfcoins = KOPF`, value: `Du kaufst dir damit den Kopf Rang`, inline: true }
+  )
+  .setTimestamp()
+  .setColor(`RED`)
+  .setFooter('Schlumpfcraft.de Bot');
+ message.channel.send(Shop)
+ message.delete();
+}
+});
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+  let role = message.guild.roles.cache.get("854778187317772289");
+  let VipGe = new Discord.MessageEmbed()
+.setTitle(`Kopf Gekauft`)
+.setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+.setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
+.addField(`${message.author.tag}`, `Du hast dir den Kopf Rang gekauft`)
+.setTimestamp()
+.setImage('https://schlumpfcraft.de/img/logo.png')
+.setColor(`GREEN`)
+.setFooter('Schlumpfcraft.de Bot');
+if (command == prefix + 'schlumpfkopf') {
+if (!ifGeld.has(`${message.author.id}`))return;
+message.channel.send("Komm bald")
 
-client.login("ODczNTk5NzI3NDc0NzI5MDcw.YQ6xJQ.9nnBEKbVmGsGnrs9L_veXsvMI-s") 
+}
+});
+client.login("ODczNTk5NzI3NDc0NzI5MDcw.YQ6xJQ.9nnBEKbVmGsGnrs9L_veXsvMI-s")
