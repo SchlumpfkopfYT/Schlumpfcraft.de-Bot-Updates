@@ -78,23 +78,21 @@ client.on('message', message  => {
       if (message.content === prefix + 'help'| message.mentions.has("887026881810034688")) {
       if (message.channel.id == "881581314816479232")return;
       if (message.member.hasPermission('KICK_MEMBERS'))return;
+      if (!message.member.hasPermission('MANAGE_MESSAGES'))return message.channel.send("Sie können diesen Befehl nicht verwenden, da Ihnen die Permission von `*Team Rolle*` fehlt");
       let Help = new Discord.MessageEmbed()
       .setTitle(`Help Seite`)
       .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.jpg','https://discord.gg/JNadFyEznH')
       .setThumbnail(`https://schlumpfcraft.de/img/logo.jpg`)
       .addFields(
-        { name: '!ping', value: 'Dann kommt Pong!' },
-        { name: '!play', value: 'Dann kannst du Musik hören' },
-        { name: '!web', value: 'Webseite Info' },
-        { name: '!infowarn <user>', value: 'Damit kannst du die Verwarung von <User>' },
-        { name: '!volume <1-10>', value: 'Damit kannst du die Lautstärke entscheiden! ' },
-        { name: `!stop/!leave/!s/!l`, value: `Dadurch verlässt der Bot den Sprachchat!`, inline: true },
+        { name: '!Ban', value: 'Gebe ein Spielernamen ein um ein zum Bannen.' },
+        { name: '!clear', value: 'um Narichen zu löschen' },
+        { name: `!kick`, value: `kann man Leute von Discord Server Kicken`, inline: true },
       )
       .setTimestamp()
       .setImage('https://schlumpfcraft.de/img/logo.jpg')
       .setColor(`GREEN`)
       .setFooter('Schlumpfcraft.de Bot');
-      message.channel.send("Kommt Bald")
+      message.channel.send(Help)
       message.delete()
     }
   });

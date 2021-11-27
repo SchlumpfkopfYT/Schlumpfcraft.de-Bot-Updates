@@ -91,6 +91,7 @@ client.on('guildMemberRemove', member => {
 client.on('message', message => {
   if(message.mentions.has("831502185640099880") | message.mentions.has("541311174168543256")| message.mentions.has("605835662653915146")| message.mentions.has("634312667263270913")) {
   if(message.member.hasPermission('MANAGE_MESSAGES')) return;
+  if (message.channel.id == "854778283861475338") return ;
   if(warnplayer.get(`${message.author.id}`) == 12 )  return  message.delete() && message.guild.members.cache.get(message.author.id).ban({reason: "Tagge Teammtglieder"});
   if(warnplayer.get(`${message.author.id}`) == 6 )  return message.delete()| warnplayer.math(`${message.author.id}`, `+`, 1) |message.guild.members.cache.get(message.author.id).kick("Tagge Teammtglieder");
     let VErwarung = new Discord.MessageEmbed()
@@ -543,6 +544,10 @@ client.on('message', (message) => {
     if (message.content === prefix + 'remove') return message.delete();
     if (message.content === prefix + 'add') return message.delete();
     if (message.content === prefix + 'ping') return message.delete();
+    if (message.content === prefix + 'schlumpfkopf') return message.delete();
+    if (message.content === prefix + 'schlumpfvip') return message.delete();
+    if (message.content === prefix + 'schlumpfshop') return message.delete();
+    if (message.content === prefix + 'shop') return message.delete();
     if(message.mentions.has("831502185640099880") | message.mentions.has("541311174168543256")| message.mentions.has("605835662653915146")| message.mentions.has("634312667263270913")) return ;
     message.react("👍")
     message.react("👎")
@@ -964,7 +969,11 @@ client.distube
         { name: '!web', value: 'Webseite Info' },
         { name: '!infowarn <user>', value: 'Damit kannst du die Verwarung von <User>' },
         { name: '!volume <1-100>', value: 'Damit kannst du die Lautstärke entscheiden! ' },
-        { name: `!stop/!leave/!s/!l`, value: `Dadurch verlässt der Bot den Sprachchat!`, inline: true }
+        { name: '!stop/!leave/!s/!l', value: 'Damit kannst du die Lautstärke entscheiden! ' },
+        { name: '!schlumpf', value: 'Damit geb es dir ein schlumpfcoin ' },
+        { name: '!Impressum', value: 'Alles rechtliche Sachen' },
+        { name: '!schlumpfshop', value: 'damit öffnetst du den shop ' },
+        { name: `!schlumpfkopf`, value: `Damit mit kannst du dir den Kopf rang kaufen`, inline: true }
       )
       .setTimestamp()
       .setImage('https://schlumpfcraft.de/img/logo.png')
@@ -1303,7 +1312,7 @@ client.on('message', message => {
   let command = message.content.toLowerCase().split(" ")[0];
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
-if (command == prefix + 'schlumpfshop') {
+if (command == prefix + 'schlumpfshop' && command == prefix + 'shop' ) {
   var Shop = new Discord.MessageEmbed()
   .setTitle(`Shop`)
   .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
@@ -1323,8 +1332,8 @@ client.on('message', message => {
   let command = message.content.toLowerCase().split(" ")[0];
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
-  let role = message.guild.roles.cache.get("854778187317772289");
-  let VipGe = new Discord.MessageEmbed()
+  let Kopf = message.guild.roles.cache.get("854778186927046670");
+  let kopfGe = new Discord.MessageEmbed()
 .setTitle(`Kopf Gekauft`)
 .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
 .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
@@ -1335,8 +1344,27 @@ client.on('message', message => {
 .setFooter('Schlumpfcraft.de Bot');
 if (command == prefix + 'schlumpfkopf') {
 if (!ifGeld.has(`${message.author.id}`))return;
-message.channel.send("Komm bald")
-
+if (Kopf)return;
+if (Geld.get(`${message.author.id}`)== 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add(Kopf) & message.channel.send(kopfGe);
+if (Geld.get(`${message.author.id}`) > 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add(Kopf) & message.channel.send(kopfGe) && message.delete()
+message.channel.send("Leider hast du nicht genug Geld daher guck mal im Shop ( !schlumpfshop) dann siehst du wie Teuer es ist und wie viel Geld du brauchst.")
 }
 });
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+  if (command == prefix + 'give500') {
+  const user = message.guild.member(message.mentions.users.first()) ||message.guild.members.cache.get(args[0])
+  if (!message.member.hasPermission('KICK_MEMBERS'))return message.channel.send("Sie können diesen Befehl nicht verwenden, da Ihnen die Permission von `*Team Rolle*` fehlt");   
+  if (!user) return message.reply("Gib einen User an.")  | message.delete();;
+  if (!ifGeld.has(`${user.id}`))return message.channel.send(`${user} ist nicht verfiy`)  ||message.delete(); ;
+  Geld.math(`${user.id}`,`+`, 500);
+ message.channel.send("Du hast dein 500 gekommen!")
+ message.delete();
+}
+});
+
+
+
 client.login("ODczNTk5NzI3NDc0NzI5MDcw.YQ6xJQ.9nnBEKbVmGsGnrs9L_veXsvMI-s")
