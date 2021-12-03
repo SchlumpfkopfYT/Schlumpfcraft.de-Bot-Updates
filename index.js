@@ -1333,20 +1333,19 @@ client.on('message', message => {
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
   let Kopf = message.guild.roles.cache.get("854778186927046670");
-  let kopfGe = new Discord.MessageEmbed()
-.setTitle(`Kopf Gekauft`)
-.setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
-.setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
-.addField(`${message.author.tag}`, `Du hast dir den Kopf Rang gekauft`)
-.setTimestamp()
-.setImage('https://schlumpfcraft.de/img/logo.png')
-.setColor(`GREEN`)
-.setFooter('Schlumpfcraft.de Bot');
 if (command == prefix + 'schlumpfkopf') {
-if (!ifGeld.has(`${message.author.id}`))return;
-if (Kopf)return;
-if (Geld.get(`${message.author.id}`)== 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add(Kopf) & message.channel.send(kopfGe);
-if (Geld.get(`${message.author.id}`) > 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add(Kopf) & message.channel.send(kopfGe) && message.delete()
+  let kopfGe = new Discord.MessageEmbed()
+  .setTitle(`Kopf Gekauft`)
+  .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
+  .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
+  .addField(`${message.author.tag}`, `Du hast dir den Kopf Rang gekauft`)
+  .setTimestamp()
+  .setImage('https://schlumpfcraft.de/img/logo.png')
+  .setColor(`GREEN`)
+  .setFooter('Schlumpfcraft.de Bot');
+ if (!ifGeld.has(`${message.author.id}`))return;
+ if (Geld.get(`${message.author.id}`)== 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add(Kopf) & message.channel.send(kopfGe);
+ if (Geld.get(`${message.author.id}`) > 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add(Kopf) & message.channel.send(kopfGe) && message.delete()
 message.channel.send("Leider hast du nicht genug Geld daher guck mal im Shop ( !schlumpfshop) dann siehst du wie Teuer es ist und wie viel Geld du brauchst.")
 }
 });
@@ -1364,7 +1363,5 @@ client.on('message', message => {
  message.delete();
 }
 });
-
-
 
 client.login("ODczNTk5NzI3NDc0NzI5MDcw.YQ6xJQ.9nnBEKbVmGsGnrs9L_veXsvMI-s")
