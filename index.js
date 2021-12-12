@@ -1291,7 +1291,7 @@ client.on('message', message => {
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
   let role = message.guild.roles.cache.get("854778187317772289");
-  let VipGe = new Discord.MessageEmbed()
+let VipGe = new Discord.MessageEmbed()
 .setTitle(`Vip Gekauft`)
 .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
 .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
@@ -1312,15 +1312,13 @@ client.on('message', message => {
   let command = message.content.toLowerCase().split(" ")[0];
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
-if (command == prefix + 'schlumpfshop' && command == prefix + 'shop' ) {
-  var Shop = new Discord.MessageEmbed()
+if (command == prefix + 'schlumpfshop' || command == prefix + 'shop') {
+  let Shop = new Discord.MessageEmbed()
   .setTitle(`Shop`)
   .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
   .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
-  .addFields(
-    { name: '10.000 Schlumpfcoins = VIP ', value: 'Du kaufst dir damit den Vip Rang' },
-    { name: `100.000 Schlumpfcoins = KOPF`, value: `Du kaufst dir damit den Kopf Rang`, inline: true }
-  )
+  .addField('10.000 Schlumpfcoins = VIP ','Du kaufst dir damit den Vip Rang' )
+  .addField(`100.000 Schlumpfcoins = KOPF`,`Du kaufst dir damit den Kopf Rang`)
   .setTimestamp()
   .setColor(`RED`)
   .setFooter('Schlumpfcraft.de Bot');
@@ -1347,6 +1345,7 @@ if (command == prefix + 'schlumpfkopf') {
  if (Geld.get(`${message.author.id}`)== 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add(Kopf) & message.channel.send(kopfGe);
  if (Geld.get(`${message.author.id}`) > 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add(Kopf) & message.channel.send(kopfGe) && message.delete()
 message.channel.send("Leider hast du nicht genug Geld daher guck mal im Shop ( !schlumpfshop) dann siehst du wie Teuer es ist und wie viel Geld du brauchst.")
+message.delete();
 }
 });
 client.on('message', message => {
