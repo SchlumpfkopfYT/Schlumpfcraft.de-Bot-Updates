@@ -1130,11 +1130,9 @@ Erfolgreich Ausgeführt`)
         if(!bUser) return
         msg.guild.members.unban(bUser.user)
         msg.channel.send("hi")
-        
   })
 };
 });
-
 client.on('message', message => {
   let command = message.content.toLowerCase().split(" ")[0];
   let messageArray = message.content.split(" ");
@@ -1144,8 +1142,6 @@ if (command == prefix + 'start') {
   ifGeld.set(`${message.author.id}`,"{}")
   Geld.math(`${message.author.id}`,`+`, 1);
   message.channel.send("Du bist nur für Schlumpfcoins verifiziert")
-
-
 }
 });
 client.on('message', message => {
@@ -1157,8 +1153,6 @@ if (command == prefix + 'money') {
   if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert")
   if(Geld.get(`${message.author.id}`)== 0 ) return message.channel.send("Du hast 0 Schlumpcoins");
     message.channel.send("Du hast "+ Money + " Schlumpfcoins")
-        
-    
 }
 });
 client.on('message', message => {
@@ -1189,7 +1183,6 @@ if(dailyaaa.has(`${message.author.id}`))return message.channel.send("Bitte Warte
 Geld.math(`${message.author.id}`,`+`, Zahle);
 dailyaaa.set(`${message.author.id}`,"{}")
 message.channel.send(`Du hast ${Zahle}+ Schlumpfcoins gekommen Auf Dein Konto ist jezte ` + Geld.get(`${message.author.id}`))
-
 }  
 });
 function iantervalFunc() {
@@ -1242,7 +1235,6 @@ if (command == prefix + 'closeadmin') {
 channelLog(log_embed)
 channel.setName(`${User.displayName}-Ticket`)
 channel.send(`Ticket wurde geschlossen von <@!${message.author.id}>`)
-
 }
 });
 client.on('message', message => {
@@ -1375,8 +1367,10 @@ client.on('message', message => {
   if (!user) return message.reply("Gib einen User an.")  | message.delete();;
   if (!ifGeld.has(`${user.id}`))return message.channel.send(`${user} ist nicht verfiy`) ||message.delete(); ;
   if (Geld.get(`${user.id}`) < Zahle)return Geld.set(`${user.id}`, 1) && Geld.math(`${message.author.id}`,`+`, Zahle) && robif.set(`${message.author.id}`,"{}") && message.channel.send("Du hast in"+ Zahle +" Geklaut!");
+  robif.
   Geld.math(`${user.id}`,`-`, Zahle)
   Geld.math(`${message.author.id}`,`+`, Zahle)
+
   message.channel.send("Du hast in "+ Zahle +" Geklaut!")
 }
 });
