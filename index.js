@@ -6,6 +6,7 @@ const Dataa = require('st.db');
 const db = new Dataa(`/Datas/tickets.json`);
 const ticketab = new Dataa(`/Datas/ifticketsa.json`);
 const warnplayer = new Dataa(`/Datas/warn.json`);
+const robif = new Dataa(`/Datas/rob.json`);
 const Geld = new Dataa(`/Datas/Geld.json`);
 const ifGeld = new Dataa(`/Datas/ifGeld.json`);
 const Warnt = new Dataa(`/Datas/WarnT.json`);
@@ -1181,12 +1182,13 @@ client.on('message', message => {
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
   let Money = Geld.get(`${message.author.id}`)
+  let Zahle = Math.floor(Math.random() * 1000)
 if (command == prefix + 'daily') {
-  if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert***!start***")
+if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert***!start***")
 if(dailyaaa.has(`${message.author.id}`))return message.channel.send("Bitte Warte 1 Stunde")
-Geld.math(`${message.author.id}`,`+`, 100);
+Geld.math(`${message.author.id}`,`+`, Zahle);
 dailyaaa.set(`${message.author.id}`,"{}")
-message.channel.send(`Du hast 100+ Schlumpfcoins gekommen Auf Dein Konto ist jezte ` + Geld.get(`${message.author.id}`))
+message.channel.send(`Du hast ${Zahle}+ Schlumpfcoins gekommen Auf Dein Konto ist jezte ` + Geld.get(`${message.author.id}`))
 
 }  
 });
@@ -1318,7 +1320,8 @@ if (command == prefix + 'schlumpfshop' || command == prefix + 'shop') {
   .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
   .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
   .addField('10.000 Schlumpfcoins = VIP ','Du kaufst dir damit den Vip Rang' )
-  .addField(`100.000 Schlumpfcoins = KOPF`,`Du kaufst dir damit den Kopf Rang`)
+  .addField(`50.000 Schlumpfcoins = KOPF`,`Du kaufst dir damit den Kopf Rang`)
+  .addField(`100.000 Schlumpfcoins = Beta Key`,`Du kaufst dir damit den Kopf Rang`)
   .setTimestamp()
   .setColor(`RED`)
   .setFooter('Schlumpfcraft.de Bot');
@@ -1362,5 +1365,22 @@ client.on('message', message => {
  message.delete();
 }
 });
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+  let Zahle = Math.floor(Math.random() * 500)
+  if (command == prefix + 'rob') {
+  const user = message.guild.member(message.mentions.users.first()) ||message.guild.members.cache.get(args[0])
+  if (!user) return message.reply("Gib einen User an.")  | message.delete();;
+  if (!ifGeld.has(`${user.id}`))return message.channel.send(`${user} ist nicht verfiy`) ||message.delete(); ;
+  if (Geld.get(`${user.id}`) < Zahle)return Geld.set(`${user.id}`, 1) && Geld.math(`${message.author.id}`,`+`, Zahle) && robif.set(`${message.author.id}`,"{}") && message.channel.send("Du hast in"+ Zahle +" Geklaut!");
+  Geld.math(`${user.id}`,`-`, Zahle)
+  Geld.math(`${message.author.id}`,`+`, Zahle)
+  message.channel.send("Du hast in "+ Zahle +" Geklaut!")
+}
+});
+
+
 
 client.login("ODczNTk5NzI3NDc0NzI5MDcw.YQ6xJQ.9nnBEKbVmGsGnrs9L_veXsvMI-s")
