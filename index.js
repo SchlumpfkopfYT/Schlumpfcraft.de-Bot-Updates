@@ -1179,7 +1179,7 @@ client.on('message', message => {
   let Zahle = Math.floor(Math.random() * 1000)
 if (command == prefix + 'daily') {
 if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert***!start***")
-if(dailyaaa.has(`${message.author.id}`))return message.channel.send("Bitte Warte 1 Stunde")
+if(dailyaaa.has(`${message.author.id}`))return message.channel.send("Bitte Warte 1 Tag")
 Geld.math(`${message.author.id}`,`+`, Zahle);
 dailyaaa.set(`${message.author.id}`,"{}")
 message.channel.send(`Du hast ${Zahle}+ Schlumpfcoins gekommen Auf Dein Konto ist jezte ` + Geld.get(`${message.author.id}`))
@@ -1365,13 +1365,13 @@ client.on('message', message => {
   let Zahle = Math.floor(Math.random() * 500)
   if (command == prefix + 'rob') {
   const user = message.guild.member(message.mentions.users.first()) ||message.guild.members.cache.get(args[0])
+  if(robif.has(`${message.author.id}`))return message.channel.send("Bitte Warte 1 Tag")
   if (!user) return message.reply("Gib einen User an.")  | message.delete();;
   if (!ifGeld.has(`${user.id}`))return message.channel.send(`${user} ist nicht verfiy`) ||message.delete(); ;
   if (Geld.get(`${user.id}`) < Zahle)return Geld.set(`${user.id}`, 1) && Geld.math(`${message.author.id}`,`+`, Zahle) && robif.set(`${message.author.id}`,"{}") && message.channel.send("Du hast in"+ Zahle +" Geklaut!");
   robif.set(`${message.author.id}`,"{}")
   Geld.math(`${user.id}`,`-`, Zahle)
   Geld.math(`${message.author.id}`,`+`, Zahle)
-
   message.channel.send("Du hast in "+ Zahle +" Geklaut!")
 }
 });
