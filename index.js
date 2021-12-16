@@ -1187,9 +1187,10 @@ message.channel.send(`Du hast ${Zahle}+ Schlumpfcoins gekommen Auf Dein Konto is
 });
 function iantervalFunc() {
   dailyaaa.clear()
+  robif.clear()
   let ch = client.channels.cache.get("893130629942767656")
   if (!ch) return console.log(`FEHLER!`)
-  ch.send("Ihr konnt wieder !daily")
+  ch.send("Ihr konnt wieder !daily und !rob")
 }
 setInterval(iantervalFunc,1000 * 60 * 60 * 24);
 function intervalFunc() {
@@ -1367,7 +1368,7 @@ client.on('message', message => {
   if (!user) return message.reply("Gib einen User an.")  | message.delete();;
   if (!ifGeld.has(`${user.id}`))return message.channel.send(`${user} ist nicht verfiy`) ||message.delete(); ;
   if (Geld.get(`${user.id}`) < Zahle)return Geld.set(`${user.id}`, 1) && Geld.math(`${message.author.id}`,`+`, Zahle) && robif.set(`${message.author.id}`,"{}") && message.channel.send("Du hast in"+ Zahle +" Geklaut!");
-  robif.
+  robif.set(`${message.author.id}`,"{}")
   Geld.math(`${user.id}`,`-`, Zahle)
   Geld.math(`${message.author.id}`,`+`, Zahle)
 
