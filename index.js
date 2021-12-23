@@ -5,9 +5,11 @@ const fs = require("fs")
 const Dataa = require('st.db');
 const db = new Dataa(`/Datas/tickets.json`);
 const ticketab = new Dataa(`/Datas/ifticketsa.json`);
+const Bank = new Dataa(`/Datas/Bank.json`);
 const warnplayer = new Dataa(`/Datas/warn.json`);
 const robif = new Dataa(`/Datas/rob.json`);
 const Geld = new Dataa(`/Datas/Geld.json`);
+const Banklogs = new Dataa(`/Datas/Banklog.json`);
 const ifGeld = new Dataa(`/Datas/ifGeld.json`);
 const Warnt = new Dataa(`/Datas/WarnT.json`);
 const dailyaaa = new Dataa(`/Datas/daily.json`);
@@ -90,9 +92,11 @@ client.on('guildMemberRemove', member => {
 });
 
 client.on('message', message => {
-  if(message.mentions.has("831502185640099880") | message.mentions.has("541311174168543256")| message.mentions.has("605835662653915146")| message.mentions.has("634312667263270913")) {
+  if(message.mentions.has("831502185640099880") | message.mentions.has("541311174168543256")| message.mentions.has("605835662653915146")| message.mentions.has("742905195536712122")) {
   if(message.member.hasPermission('MANAGE_MESSAGES')) return;
   if (message.channel.id == "854778283861475338") return ;
+  if (message.channel.id == "854778247330136084") return ;
+  if (message.channel.id == "854778249346285568") return ;
   if(warnplayer.get(`${message.author.id}`) == 12 )  return  message.delete() && message.guild.members.cache.get(message.author.id).ban({reason: "Tagge Teammtglieder"});
   if(warnplayer.get(`${message.author.id}`) == 6 )  return message.delete()| warnplayer.math(`${message.author.id}`, `+`, 1) |message.guild.members.cache.get(message.author.id).kick("Tagge Teammtglieder");
     let VErwarung = new Discord.MessageEmbed()
@@ -413,7 +417,7 @@ client.on('clickButton', async button => {
 **Ihr Ticket wurde erfolgreich geöffnet** <#${channel.id}>`, true)
           let log_embed = new Discord.MessageEmbed()
             .setTitle(`Es wurde ein Neues Ticket erstellt!`)
-            .addField(`Das Ticket!`, `<#${channel.id}>`)
+            .addField("Das Ticket!", `<#${channel.id}>`)
             .addField(`Diesen Knopf betätigen!`, `${button.clicker.user}`)  
             .addField(`Zahle : `, count)
             .setTimestamp()
@@ -1138,7 +1142,7 @@ client.on('message', message => {
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
 if (command == prefix + 'start') {
-  if(ifGeld.has(`${message.author.id}`))return;
+  if(ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist für Schlumpfcoins verifiziert");
   ifGeld.set(`${message.author.id}`,"{}")
   Geld.math(`${message.author.id}`,`+`, 1);
   message.channel.send("Du bist nur für Schlumpfcoins verifiziert")
@@ -1148,11 +1152,13 @@ client.on('message', message => {
   let command = message.content.toLowerCase().split(" ")[0];
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
-  let Money = Geld.get(`${message.author.id}`)
 if (command == prefix + 'money') {
   if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert")
-  if(Geld.get(`${message.author.id}`)== 0 ) return message.channel.send("Du hast 0 Schlumpcoins");
+  if(Geld.get(`${message.author.id}`)== 1 ) return message.channel.send("Du hast 0 Schlumpcoins");
+  Geld.math(`${message.author.id}`,`-`, 1)
+  let Money = Geld.get(`${message.author.id}`);
     message.channel.send("Du hast "+ Money + " Schlumpfcoins")
+    Geld.math(`${message.author.id}`,`+`, 1)
 }
 });
 client.on('message', message => {
@@ -1176,13 +1182,15 @@ client.on('message', message => {
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
   let Money = Geld.get(`${message.author.id}`)
-  let Zahle = Math.floor(Math.random() * 1000)
 if (command == prefix + 'daily') {
 if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert***!start***")
 if(dailyaaa.has(`${message.author.id}`))return message.channel.send("Bitte Warte 1 Tag")
-Geld.math(`${message.author.id}`,`+`, Zahle);
 dailyaaa.set(`${message.author.id}`,"{}")
+let Zahle = Math.floor(Math.random() * 1000)
+Geld.math(`${message.author.id}`,`+`, Zahle);
+Geld.math(`${message.author.id}`,`-`, 1)
 message.channel.send(`Du hast ${Zahle}+ Schlumpfcoins gekommen Auf Dein Konto ist jezte ` + Geld.get(`${message.author.id}`))
+Geld.math(`${message.author.id}`,`+`, 1)
 }  
 });
 function iantervalFunc() {
@@ -1286,16 +1294,16 @@ client.on('message', message => {
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
   let role = message.guild.roles.cache.get("854778187317772289");
+if (command == prefix + 'schlumpfvip') {
 let VipGe = new Discord.MessageEmbed()
 .setTitle(`Vip Gekauft`)
 .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
 .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
-.addField(`${message.author.tag}`, `Du hast dir den Vip Rang gekauft`)
+.addField("${message.author.tag}", "Du hast dir den Vip Rang gekauft")
 .setTimestamp()
 .setImage('https://schlumpfcraft.de/img/logo.png')
 .setColor(`GREEN`)
 .setFooter('Schlumpfcraft.de Bot');
-if (command == prefix + 'schlumpfvip') {
 if (!ifGeld.has(`${message.author.id}`))return;
 if (role)return;
 if (Geld.get(`${message.author.id}`)== 10000)return Geld.math(`${message.author.id}`, `-`, 10000) & message.member.roles.add(role) & message.channel.send(VipGe);
@@ -1365,17 +1373,83 @@ client.on('message', message => {
   let Zahle = Math.floor(Math.random() * 500)
   if (command == prefix + 'rob') {
   const user = message.guild.member(message.mentions.users.first()) ||message.guild.members.cache.get(args[0])
-  if(robif.has(`${message.author.id}`))return message.channel.send("Bitte Warte 1 Tag")
+  if(robif.has(`${message.author.id}`))return message.channel.send("Bitte Warte 1 Tag");
   if (!user) return message.reply("Gib einen User an.")  | message.delete();;
-  if (!ifGeld.has(`${user.id}`))return message.channel.send(`${user} ist nicht verfiy`) ||message.delete(); ;
-  if (Geld.get(`${user.id}`) < Zahle)return Geld.set(`${user.id}`, 1) && Geld.math(`${message.author.id}`,`+`, Zahle) && robif.set(`${message.author.id}`,"{}") && message.channel.send("Du hast in"+ Zahle +" Geklaut!");
+  if (!ifGeld.has(`${message.author.id}`)) return message.channel.send(`${message.author.tag} ist nicht verfiy`) && message.delete(); 
+  if (!ifGeld.has(`${user.id}`)) return message.channel.send(`${user} ist nicht verfiy`) && message.delete(); 
+  if (Geld.get(`${user.id}`) < Zahle)return Geld.set(`${user.id}`, 1) && Geld.math(`${message.author.id}`,`+`, Zahle) && robif.set(`${message.author.id}`,"{}") && message.channel.send("Du hast in "+ Zahle +" Geklaut!");
   robif.set(`${message.author.id}`,"{}")
   Geld.math(`${user.id}`,`-`, Zahle)
   Geld.math(`${message.author.id}`,`+`, Zahle)
   message.channel.send("Du hast in "+ Zahle +" Geklaut!")
 }
 });
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+  let GeldBank = Bank.get(`${message.author.id}`);
+  if (command == prefix + 'bank') {
+  if (!ifGeld.has(`${message.author.id}`))return message.channel.send(`${message.author.tag} ist nicht verfiy`) ||message.delete(); 
+  if (GeldBank = 1)return message.channel.send(`Du hast 0 sclumpfcoins`) || message.delete();  
+  if (Bank.has(`${message.author.id}`))return message.channel.send(`Du hast ${GeldBank} schlumpfcoins`) || message.delete();   
+ message.channel.send("Fehler-Bank-1391")
+}
+});
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+  let GeldBank = Bank.get(`${message.author.id}`);
+  let amount = message.content.split(' ')[1];
+  if (command == prefix + 'bank-add') {
+  if (!ifGeld.has(`${message.author.id}`))return message.channel.send(`${message.author.tag} ist nicht verfiy`) ||message.delete(); 
+  let Zahle = parseFloat(amount);
+  message.channel.send(`Die ${Zahle} worden auf deiner Banke versoben`)
+  Geld.math(`${message.author.id}`,`-`, Zahle)
+  Geld.math(`${message.author.id}`,`+`, 1)
+  Bank.math(`${message.author.id}`,`+`, Zahle)
 
+}
+});
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+  let GeldBank = Bank.get(`${message.author.id}`);
+  let amount = message.content.split(' ')[1];
+  if (command == prefix + 'bank-remove') {
+  if (!ifGeld.has(`${message.author.id}`))return message.channel.send(`${message.author.tag} ist nicht verfiy`) ||message.delete(); 
+  let Zahle = parseFloat(amount);
+  if (amount == 0)return message.channel.send("Bitte geb ein Zahle an und kein 0!!!");
+  if (GeldBank == 1)return message.channel.send("In Deiner Bank ist nix !");
+  if (amount > GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.math(`${message.author.id}`,`-`, Zahle) || message.channel.send("Nix Test2345678");
+  if (amount < GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.math(`${message.author.id}`,`-`, Zahle) || message.channel.send("Nix Test2345678");
+  if (amount = GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.remove(`${message.author.id}`) || message.channel.send("Nix Test34567");
+message.channel.send("Hast Das Geld Nicht auf Der Bank!")
+
+}
+});
+client.on('message', message => {
+  let command = message.content.toLowerCase().split(" ")[0];
+  let messageArray = message.content.split(" ");
+  let args = messageArray.slice(1);
+  let Zahle = Math.floor(Math.random() * 500)
+  let Summer = message.content.split(' ')[2];
+  let GeldBank = Geld.get(`${message.author.id}`);
+  if (command == prefix + 'pay') {
+  const user = message.guild.member(message.mentions.users.first()) ||message.guild.members.cache.get(args[0])
+  if (!user) return message.reply("Gib einen User an.")  | message.delete();;
+  if (!Summer)return message.channel.send("Geb ein Zahle an ")
+  if (GeldBank == 1)return message.channel.send(`${message.author.tag} Du Hast Kein Geld`);
+  let Zahle = parseFloat(Summer);
+  if (GeldBank < Summer)return message.channel.send(`${message.author.tag} Du Hast nicht genung Geld`);
+  Geld.math(`${user.id}`,`+`, Zahle)
+  Geld.math(`${message.author.id}`,`-`, Zahle)
+  message.channel.send(`Du hast ${user.user.tag} so viel gepayt ${Zahle}`)
+
+}
+});
 
 
 client.login("ODczNTk5NzI3NDc0NzI5MDcw.YQ6xJQ.9nnBEKbVmGsGnrs9L_veXsvMI-s")

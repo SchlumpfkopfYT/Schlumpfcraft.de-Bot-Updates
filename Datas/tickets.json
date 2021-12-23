@@ -14,5 +14,21 @@
         "guildName": "Server von SchlumpfkopfYT",
         "guildAvatar": null,
         "channelID": "884469796740169842"
+    },
+    "tickets_1NHyKdNUByf4D9Ep28gV": {
+        "reason": "Support Ticket",
+        "msgID": "921402457156898826",
+        "id": "1NHyKdNUByf4D9Ep28gV",
+        "guildName": "Testen Server Bot",
+        "guildAvatar": null,
+        "channelID": "885597805350092860"
+    },
+    "tickets_NECaUphTVOKL2Um6dEwO": {
+        "reason": "Support Ticket",
+        "msgID": "921402818517151755",
+        "id": "NECaUphTVOKL2Um6dEwO",
+        "guildName": "Testen Server Bot",
+        "guildAvatar": null,
+        "channelID": "873681581116645437"
     }
 }
