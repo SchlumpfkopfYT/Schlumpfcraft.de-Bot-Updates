@@ -5,7 +5,7 @@ const fs = require("fs")
 const Dataa = require('st.db');
 const db = new Dataa(`/Datas/tickets.json`);
 const ticketab = new Dataa(`/Datas/ifticketsa.json`);
-const Bank = new Dataa(`/Datas/Bank.json`);
+const Bank = new Dataa(`/Datas/bank.json`);
 const warnplayer = new Dataa(`/Datas/warn.json`);
 const robif = new Dataa(`/Datas/rob.json`);
 const Geld = new Dataa(`/Datas/Geld.json`);
@@ -1152,13 +1152,13 @@ client.on('message', message => {
   let command = message.content.toLowerCase().split(" ")[0];
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
-if (command == prefix + 'money') {
-  if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert")
-  if(Geld.get(`${message.author.id}`)== 1 ) return message.channel.send("Du hast 0 Schlumpcoins");
-  Geld.math(`${message.author.id}`,`-`, 1)
-  let Money = Geld.get(`${message.author.id}`);
-    message.channel.send("Du hast "+ Money + " Schlumpfcoins")
-    Geld.math(`${message.author.id}`,`+`, 1)
+  let MoneyACE = Geld.get(`${message.author.id}`);
+if (command == prefix + 'geld' || command == prefix + 'money') {
+  if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert");
+  if(MoneyACE == 1 )return message.channel.send("Du hast 0 Schlumpcoins");        
+  Geld.math(`${message.author.id}`,`-`, 1) 
+  message.channel.send("Du hast "+ MoneyACE + " Schlumpfcoins")
+  Geld.math(`${message.author.id}`,`+`, 1)
 }
 });
 client.on('message', message => {
@@ -1391,7 +1391,7 @@ client.on('message', message => {
   let GeldBank = Bank.get(`${message.author.id}`);
   if (command == prefix + 'bank') {
   if (!ifGeld.has(`${message.author.id}`))return message.channel.send(`${message.author.tag} ist nicht verfiy`) ||message.delete(); 
-  if (GeldBank = 1)return message.channel.send(`Du hast 0 sclumpfcoins`) || message.delete();  
+  if (GeldBank == 1)return message.channel.send(`Du hast 0 sclumpfcoins`) || message.delete();  
   if (Bank.has(`${message.author.id}`))return message.channel.send(`Du hast ${GeldBank} schlumpfcoins`) || message.delete();   
  message.channel.send("Fehler-Bank-1391")
 }
@@ -1423,9 +1423,9 @@ client.on('message', message => {
   let Zahle = parseFloat(amount);
   if (amount == 0)return message.channel.send("Bitte geb ein Zahle an und kein 0!!!");
   if (GeldBank == 1)return message.channel.send("In Deiner Bank ist nix !");
-  if (amount > GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.math(`${message.author.id}`,`-`, Zahle) || message.channel.send("Nix Test2345678");
-  if (amount < GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.math(`${message.author.id}`,`-`, Zahle) || message.channel.send("Nix Test2345678");
-  if (amount = GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.remove(`${message.author.id}`) || message.channel.send("Nix Test34567");
+  if (amount > GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.math(`${message.author.id}`,`-`, Zahle) || message.channel.send(`Dir würden ${Zahle} Geben `);
+  if (amount < GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.math(`${message.author.id}`,`-`, Zahle) || message.channel.send(`Dir würden ${Zahle} Geben `);
+  if (amount = GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.remove(`${message.author.id}`) || message.channel.send(`Dir würden ${Zahle} Geben `);
 message.channel.send("Hast Das Geld Nicht auf Der Bank!")
 
 }
