@@ -30,5 +30,13 @@
         "guildName": "Testen Server Bot",
         "guildAvatar": null,
         "channelID": "873681581116645437"
+    },
+    "tickets_Vr8P7AkiQjvV2QdutI6j": {
+        "reason": "Support Ticket",
+        "msgID": "928397360529281024",
+        "id": "Vr8P7AkiQjvV2QdutI6j",
+        "guildName": "Testen Server Bot",
+        "guildAvatar": null,
+        "channelID": "885605676221607966"
     }
 }

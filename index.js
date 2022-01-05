@@ -12,6 +12,7 @@ const Geld = new Dataa(`/Datas/Geld.json`);
 const Banklogs = new Dataa(`/Datas/Banklog.json`);
 const ifGeld = new Dataa(`/Datas/ifGeld.json`);
 const Warnt = new Dataa(`/Datas/WarnT.json`);
+const antispam = new Dataa(`/Datas/antispam.json`);
 const dailyaaa = new Dataa(`/Datas/daily.json`);
 const countsdb = new Dataa(`/Datas/tickets-counts.json`);
 const ifban = new Dataa(`/Datas/ban.json`);
@@ -158,10 +159,8 @@ client.on('ready', async () => {
       let embed = new Discord.MessageEmbed()
         .setTitle(body.data.reason)
         .setDescription("Erstellen Sie ein Interaktionsticket mit 📩")
-        .setThumbnail(message.guild.iconURL())
         .setTimestamp()
         .setColor(0x5865F2)
-        .setFooter(message.guild.name, message.guild.iconURL())
       try {
         msg.edit({ embed: embed, component: button })
       } catch{
@@ -1167,8 +1166,8 @@ client.on('message', message => {
   let args = messageArray.slice(1);
 if (command == prefix + 'schlumpf') {
   if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert***!start***")
-  Geld.math(`${message.author.id}`,`+`, 1);
-  message.channel.send("Du Hast 1 Euro Gekommen !")
+  Geld.math(`${message.author.id}`,`+`, 4);
+  message.channel.send("Du Hast 4 Euro Gekommen !")
   let log_warn = new Discord.MessageEmbed()
   .setTitle(`Befehlen Check`)
   .addField(`${message.author.tag}`, `Hat /schlumpf Gemacht!`) 
@@ -1293,7 +1292,6 @@ client.on('message', message => {
   let command = message.content.toLowerCase().split(" ")[0];
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
-  let role = message.guild.roles.cache.get("854778187317772289");
 if (command == prefix + 'schlumpfvip') {
 let VipGe = new Discord.MessageEmbed()
 .setTitle(`Vip Gekauft`)
@@ -1306,8 +1304,8 @@ let VipGe = new Discord.MessageEmbed()
 .setFooter('Schlumpfcraft.de Bot');
 if (!ifGeld.has(`${message.author.id}`))return;
 if (role)return;
-if (Geld.get(`${message.author.id}`)== 10000)return Geld.math(`${message.author.id}`, `-`, 10000) & message.member.roles.add(role) & message.channel.send(VipGe);
-if (Geld.get(`${message.author.id}`) > 10000)return Geld.math(`${message.author.id}`, `-`, 10000) & message.member.roles.add(role) & message.channel.send(VipGe) && message.delete();
+if (Geld.get(`${message.author.id}`) > 10000)return Geld.math(`${message.author.id}`, `-`, 10000) & message.member.roles.add("854778187317772289") & message.channel.send(VipGe) && message.delete();
+if (Geld.get(`${message.author.id}`)== 10000)return Geld.math(`${message.author.id}`, `-`, 10000) & message.member.roles.add("854778187317772289") & message.channel.send(VipGe);
 message.channel.send("Leider hast du nicht genug Geld daher guck mal im Shop ( !schlumpfshop) dann siehst du wie Teuer es ist und wie viel Geld du brauchst.")
 }
 });
@@ -1321,8 +1319,9 @@ if (command == prefix + 'schlumpfshop' || command == prefix + 'shop') {
   .setAuthor('Schlumpfcraft.de', 'https://schlumpfcraft.de/img/logo.png','https://discord.gg/JNadFyEznH')
   .setThumbnail(`https://schlumpfcraft.de/img/logo.png`)
   .addField('10.000 Schlumpfcoins = VIP ','Du kaufst dir damit den Vip Rang' )
+  .addField(`25.000 Schlumpfcoins = Channel Key`,`Du Gekomm ein Einger channel`)
   .addField(`50.000 Schlumpfcoins = KOPF`,`Du kaufst dir damit den Kopf Rang`)
-  .addField(`100.000 Schlumpfcoins = Beta Key`,`Du kaufst dir damit den Kopf Rang`)
+  .addField(`100.000 Schlumpfcoins = Beta Key`,`Ein Beta Key`)
   .setTimestamp()
   .setColor(`RED`)
   .setFooter('Schlumpfcraft.de Bot');
@@ -1334,7 +1333,6 @@ client.on('message', message => {
   let command = message.content.toLowerCase().split(" ")[0];
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
-  let Kopf = message.guild.roles.cache.get("854778186927046670");
 if (command == prefix + 'schlumpfkopf') {
   let kopfGe = new Discord.MessageEmbed()
   .setTitle(`Kopf Gekauft`)
@@ -1346,8 +1344,8 @@ if (command == prefix + 'schlumpfkopf') {
   .setColor(`GREEN`)
   .setFooter('Schlumpfcraft.de Bot');
  if (!ifGeld.has(`${message.author.id}`))return;
- if (Geld.get(`${message.author.id}`)== 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add(Kopf) & message.channel.send(kopfGe);
- if (Geld.get(`${message.author.id}`) > 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add(Kopf) & message.channel.send(kopfGe) && message.delete()
+ if (Geld.get(`${message.author.id}`)== 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add("854778186927046670") & message.channel.send(kopfGe);
+ if (Geld.get(`${message.author.id}`) > 100000)return Geld.math(`${message.author.id}`, `-`, 100000) & message.member.roles.add("854778186927046670") & message.channel.send(kopfGe) && message.delete()
 message.channel.send("Leider hast du nicht genug Geld daher guck mal im Shop ( !schlumpfshop) dann siehst du wie Teuer es ist und wie viel Geld du brauchst.")
 message.delete();
 }
@@ -1400,14 +1398,14 @@ client.on('message', message => {
   let command = message.content.toLowerCase().split(" ")[0];
   let messageArray = message.content.split(" ");
   let args = messageArray.slice(1);
-  let GeldBank = Bank.get(`${message.author.id}`);
+  let GeldUser = Geld.get(`${message.author.id}`);
   let amount = message.content.split(' ')[1];
   if (command == prefix + 'bank-add') {
   if (!ifGeld.has(`${message.author.id}`))return message.channel.send(`${message.author.tag} ist nicht verfiy`) ||message.delete(); 
+  if (GeldUser == 1)return message.channel.send(`Du hast 0 sclumpfcoins`) || message.delete(); 
   let Zahle = parseFloat(amount);
   message.channel.send(`Die ${Zahle} worden auf deiner Banke versoben`)
   Geld.math(`${message.author.id}`,`-`, Zahle)
-  Geld.math(`${message.author.id}`,`+`, 1)
   Bank.math(`${message.author.id}`,`+`, Zahle)
 
 }
@@ -1424,7 +1422,6 @@ client.on('message', message => {
   if (amount == 0)return message.channel.send("Bitte geb ein Zahle an und kein 0!!!");
   if (GeldBank == 1)return message.channel.send("In Deiner Bank ist nix !");
   if (amount > GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.math(`${message.author.id}`,`-`, Zahle) || message.channel.send(`Dir würden ${Zahle} Geben `);
-  if (amount < GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.math(`${message.author.id}`,`-`, Zahle) || message.channel.send(`Dir würden ${Zahle} Geben `);
   if (amount = GeldBank)return Geld.math(`${message.author.id}`,`+`, Zahle) || Bank.remove(`${message.author.id}`) || message.channel.send(`Dir würden ${Zahle} Geben `);
 message.channel.send("Hast Das Geld Nicht auf Der Bank!")
 
@@ -1450,6 +1447,39 @@ client.on('message', message => {
 
 }
 });
+
+  client.on('message', message => {
+    let command = message.content.toLowerCase().split(" ")[0];
+    let messageArray = message.content.split(" ");
+    let args = messageArray.slice(1);
+    let Zahle = Math.floor(Math.random() * 500)
+    let Summer = message.content.split(' ')[2];
+    let GeldBank = Geld.get(`${message.author.id}`);
+    let Botif = "873599727474729070";
+    let amount = 15;
+    let amount2 = 30;
+    if(warnplayer.get(`${message.author.id}`) == 12 ) return  message.delete() && message.guild.members.cache.get(message.author.id).ban({reason: "Tagge Teammtglieder"});
+    if(warnplayer.get(`${message.author.id}`) == 6 ) return message.delete()| warnplayer.math(`${message.author.id}`, `+`, 1) |message.guild.members.cache.get(message.author.id).kick("Tagge Teammtglieder");
+    if (antispam.get(`${message.author.id}`)== 15)return  message.channel.bulkDelete(amount, true) &&antispam.math(`${message.author.id}`,"+",1)|| message.channel.send("Achtung Du spammst das ist fast ein Verwarumg!!!!!!!!!!");
+    if (antispam.get(`${message.author.id}`)== 25)return message.channel.bulkDelete(amount2, true )&& message.member.roles.remove("854778189444546560") && message.author.send("Du hast ein Verwarung gekommen!") && warnplayer.math(`${message.author.id}`, `+`, 1) && antispam.remove(`${message.author.id}`);
+    if (command)return antispam.math(`${message.author.id}`,"+",1)
+    
+  });
+
+  function intervalFunc() {
+    if (!config.log_channel_id) return;
+    antispam.clear();
+  }
+  setInterval(intervalFunc,1000 * 1 * 1 * 60);
+
+
+
+
+
+
+
+
+
 
 
 client.login("ODczNTk5NzI3NDc0NzI5MDcw.YQ6xJQ.9nnBEKbVmGsGnrs9L_veXsvMI-s")
