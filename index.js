@@ -1461,7 +1461,7 @@ client.on('message', message => {
     if(warnplayer.get(`${message.author.id}`) == 12 ) return  message.delete() && message.guild.members.cache.get(message.author.id).ban({reason: "Tagge Teammtglieder"});
     if(warnplayer.get(`${message.author.id}`) == 6 ) return message.delete()| warnplayer.math(`${message.author.id}`, `+`, 1) |message.guild.members.cache.get(message.author.id).kick("Tagge Teammtglieder");
     if (antispam.get(`${message.author.id}`)== 15)return  message.channel.bulkDelete(amount, true) &&antispam.math(`${message.author.id}`,"+",1)|| message.channel.send("Achtung Du spammst das ist fast ein Verwarumg!!!!!!!!!!");
-    if (antispam.get(`${message.author.id}`)== 25)return message.channel.bulkDelete(amount2, true )&& message.member.roles.remove("854778189444546560") && message.author.send("Du hast ein Verwarung gekommen!") && warnplayer.math(`${message.author.id}`, `+`, 1) && antispam.remove(`${message.author.id}`);
+    if (antispam.get(`${message.author.id}`)== 25)return antispam.math(`${message.author.id}`,"+",1) && message.channel.bulkDelete(amount2, true )&& message.member.roles.remove("854778189444546560") && message.author.send("Du hast ein Verwarung gekommen!") && warnplayer.math(`${message.author.id}`, `+`, 1) && antispam.remove(`${message.author.id}`);
     if (command)return antispam.math(`${message.author.id}`,"+",1)
     
   });
