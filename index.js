@@ -1470,7 +1470,23 @@ client.on('message', message => {
     if (!config.log_channel_id) return;
     antispam.clear();
   }
-  setInterval(intervalFunc,1000 * 1 * 1 * 60);
+  setInterval(intervalFunc,1000 * 1 * 1 * 30);
+
+
+  client.on('message', message => {
+    let command = message.content.toLowerCase().split(" ")[0];
+    let messageArray = message.content.split(" ");
+    let args = messageArray.slice(1);
+    let oneandzw = Math.floor(Math.random() * 2)
+    let Killerzahle = Math.floor(Math.random() * 1000)
+    if (command == prefix + 'schlumpfkiller') {
+    if(oneandzw == 0 )return Bank.math(`${message.author.id}`, `-`, Killerzahle) || message.channel.send("Du Hast " + Killerzahle + "Geklommen");
+    if(oneandzw == 1 )return Bank.math(`${message.author.id}`, `+`, Killerzahle) || message.channel.send("Dir wörde " + Killerzahle + "Geklaut");
+    if(oneandzw = 2 )return message.channel.send("Feheler-1486-2");
+    message.channel.send("Fehler-1487");
+
+  }
+  });
 
 
 
@@ -1479,7 +1495,4 @@ client.on('message', message => {
 
 
 
-
-
-
-client.login("ODczNTk5NzI3NDc0NzI5MDcw.YQ6xJQ.9nnBEKbVmGsGnrs9L_veXsvMI-s")
+client.login(config.token)
