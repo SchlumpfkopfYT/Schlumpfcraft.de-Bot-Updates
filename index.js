@@ -4,6 +4,7 @@ require('discord-reply');
 const fs = require("fs")
 const Dataa = require('st.db');
 const db = new Dataa(`/Datas/tickets.json`);
+const Killerif = new Dataa(`/Datas/killerif.json`);
 const ticketab = new Dataa(`/Datas/ifticketsa.json`);
 const Bank = new Dataa(`/Datas/bank.json`);
 const warnplayer = new Dataa(`/Datas/warn.json`);
@@ -1195,6 +1196,7 @@ Geld.math(`${message.author.id}`,`+`, 1)
 function iantervalFunc() {
   dailyaaa.clear()
   robif.clear()
+  Killerif.clear()
   let ch = client.channels.cache.get("893130629942767656")
   if (!ch) return console.log(`FEHLER!`)
   ch.send("Ihr konnt wieder !daily und !rob")
@@ -1480,15 +1482,17 @@ client.on('message', message => {
     let oneandzw = Math.floor(Math.random() * 2)
     let Killerzahle = Math.floor(Math.random() * 1000)
     if (command == prefix + 'schlumpfkiller') {
-    if(oneandzw == 0 )return Bank.math(`${message.author.id}`, `-`, Killerzahle) || message.channel.send("Du Hast " + Killerzahle + "Geklommen");
-    if(oneandzw == 1 )return Bank.math(`${message.author.id}`, `+`, Killerzahle) || message.channel.send("Dir wörde " + Killerzahle + "Geklaut");
-    if(oneandzw = 2 )return message.channel.send("Feheler-1486-2");
+    if(Killerif.has(`${message.author.id}`))return message.channel.send("Bitte Warte 1 Tag");
+    if(oneandzw == 0 )return Bank.math(`${message.author.id}`, `-`, Killerzahle) || message.channel.send("Du Hast " + Killerzahle + "Geklommen")|| Killerif.set(`${message.author.id}`,"{}");
+    if(oneandzw == 1 )return Bank.math(`${message.author.id}`, `+`, Killerzahle) || message.channel.send("Dir wörde " + Killerzahle + "Geklaut")||   Killerif.set(`${message.author.id}`,"{}");
+    if(oneandzw = 2 )return message.channel.send("Feheler-1486-2")|| Killerif.set(`${message.author.id}`,"{}") ;
     message.channel.send("Fehler-1487");
+    Killerif.set(`${message.author.id}`,"{}")
 
   }
   });
 
-
+32
 
 
 
