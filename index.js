@@ -1491,9 +1491,28 @@ client.on('message', message => {
 
   }
   });
+  client.on('message', message => {
+    let command = message.content.toLowerCase().split(" ")[0];
+    let messageArray = message.content.split(" ");
+    let args = messageArray.slice(1);
+    let oneandzw = Math.floor(Math.random() * 2)
+    let Killerzahle = Math.floor(Math.random() * 1000)
+    if (command == prefix + 'top') {
+      let money = Geld.get(`${message.author.id}`);
+      let content = "";
+      for (let i = 0; i < money; i++) {
+      let user = client.users.get(money[i]).username
+      content += `${i+1}. ${user} ~ ${mansions[i]}\n`
+    }
+    const embed = new Discord.MessageEmbed()
+    .setDescription(`**${message.guild.name}'s Coin Leaderboard**\n\n${content}`)
+    .setColor("#FFFFFF")
 
-32
+    message.channel.send(embed)
 
+    }
+  
+});
 
 
 
