@@ -72,6 +72,7 @@ heute = date.toLocaleString('de-DE');
 client.on('guildMemberRemove', member => {
   let count = member.guild.memberCount.toString() 
   let end = count[count.length-1]
+  let Ticketif = ticketab.get(`${member.user.id}`);
   let suffixed = end == 1 ? count + "st" : end == 2 ? count + "nd" : end == 3 ? count + "rd" : count + "th" 
   const channel = client.channels.cache.get(config.wilkommen)
   const memberavatar = member.user.displayAvatarURL
@@ -91,6 +92,7 @@ client.on('guildMemberRemove', member => {
       channel.send(embeda);
       let logs = client.channels.cache.get(config.log_channel_id)
       channelLog(`> :inbox_tray: ${member} has verlasst ${member.guild.name}.`)
+      if(ticketab.has(`${member.user.id}`))return ticketab.remove(`${member.user.id}`);
 });
 
 client.on('message', message => {
@@ -121,7 +123,7 @@ client.on('message', message => {
 client.on('message', message => {
   if (message.content === prefix + 'ping') {
     if (message.channel.id == "881581314816479232") return ;
-    message.channel.send("Der Ping vom Bot ist 1ms") 
+    message.channel.send("Der Ping vom Bot ist "+ client.ws.ping) 
   }
 });
 client.on('message', message => {
@@ -386,7 +388,7 @@ client.on('message', async (message) => {
 })
 client.on('clickButton', async button => {
   if (db.has(`tickets_${button.id}`) == true) {
-    if(ticketab.has(`${button.clicker.user.id}`))return button.reply.send(`du hast schon ein Ticket`, true)
+    if(ticketab.has(`${button.clicker.user.id}`))return button.reply.send(`Du hast bereits ein Ticket`, true)
     await button.reply.send(`Ihr Ticket wird vorbereitet. Bitte warten`, true)
     await countsdb.math(`counts_${button.message.id}`, `+`, 1)
     let count = await countsdb.get(`counts_${button.message.id}`)
