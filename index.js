@@ -978,7 +978,7 @@ client.distube
         { name: '!volume <1-100>', value: 'Damit kannst du die Lautstärke entscheiden! ' },
         { name: '!stop/!leave/!s/!l', value: 'Damit kannst du die Lautstärke entscheiden! ' },
         { name: '!schlumpf', value: 'Damit geb es dir ein schlumpfcoin ' },
-        { name: '!Impressum', value: 'Alles rechtliche Sachen' },
+        { name: '!rechtlich', value: 'Alles rechtliche Sachen' },
         { name: '!schlumpfshop', value: 'damit öffnetst du den shop ' },
         { name: `!schlumpfkopf`, value: `Damit mit kannst du dir den Kopf rang kaufen`, inline: true }
       )
@@ -1169,7 +1169,7 @@ client.on('message', message => {
   let args = messageArray.slice(1);
 if (command == prefix + 'schlumpf') {
   if(!ifGeld.has(`${message.author.id}`))return message.channel.send("Du bist nicht für Schlumnpfcoins verifiziert***!start***")
-  Geld.math(`${message.author.id}`,`+`, 4);
+  Geld.math(`${message.guild.id}`),(`${message.author.id}`,`+`, 4);
   message.channel.send("Du Hast 4 Euro Gekommen !")
   let log_warn = new Discord.MessageEmbed()
   .setTitle(`Befehlen Check`)
@@ -1493,6 +1493,8 @@ client.on('message', message => {
 
   }
   });
+
+
 
 
 client.login(config.token)
